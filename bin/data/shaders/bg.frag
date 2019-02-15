@@ -6,6 +6,9 @@ uniform vec4 colorTR;
 uniform vec4 colorBR;
 uniform vec4 colorBL;
 
+uniform float gradientStart;
+uniform float gradientEnd;
+
 in vec2 vTexCoord;
 
 out vec4 fragColor;
@@ -83,19 +86,26 @@ vec3 lab2rgb(vec3 c) {
 void main(){
 	//	Normalize coordinates
 	vec2 uv = gl_FragCoord.xy / res.xy;
-	//	Optional: convert color space
+	
+    //	Optional: convert color space
 	vec3 hsvTL = rgb2lab(colorTL.rgb);
 	vec3 hsvTR = rgb2lab(colorTR.rgb);
 	vec3 hsvBR = rgb2lab(colorBR.rgb);
 	vec3 hsvBL = rgb2lab(colorBL.rgb);
-	//	Mix colors, convert back
+	
+    //	Mix colors, convert back
 	vec3 colT = mix(hsvTL, hsvTR, uv.x);
 	vec3 colB = mix(hsvBL, hsvBR, uv.x);
 	vec3 col  = lab2rgb(mix(colT, colB, uv.y));
-	//	Mix alpha
+	
+    //	Mix alpha
 	float alphaT = mix(colorTL.a, colorTR.a, uv.x);
 	float alphaB = mix(colorBL.a, colorBR.a, uv.x);
 	float alpha  = mix(alphaT, alphaB, uv.y);
+    
+    //  Alpha gradient
+    //alpha *= smoothstep(gradientStart, gradientEnd, uv.x);
+
 	//	Color out
 	fragColor = vec4(col, alpha);
 }

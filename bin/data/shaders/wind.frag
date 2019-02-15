@@ -25,7 +25,6 @@ void main(){
     //  Initialize
     float alpha = 0.0;
     float maxAlpha = 0.0;
-    float maxM = 0.0;
     
     //  Color
     vec3 c;

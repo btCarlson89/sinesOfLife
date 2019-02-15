@@ -99,6 +99,7 @@ void Heat::writeOffsetsToTex(){
 	}
 	offsetTex.clear();
 	offsetTex.allocate(n, 1, GL_RGBA);
+	offsetTex.setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 	offsetTex.loadData(offsetData, n, 1, GL_RGBA);
 	delete[] offsetData;
 }
@@ -114,6 +115,7 @@ void Heat::writeTimeFactorsToTex(){
 	}
 	timeTex.clear();
 	timeTex.allocate(n, 1, GL_RGBA);
+	timeTex.setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 	timeTex.loadData(timeData, n, 1, GL_RGBA);
 
 	delete[] timeData;
@@ -133,6 +135,7 @@ void Heat::writeNoiseToTex(){
 	}
 	noiseTex.clear();
 	noiseTex.allocate(n, 1, GL_RGBA);
+	noiseTex.setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 	noiseTex.loadData(noiseData, n, 1, GL_RGBA);
 
 	delete[] noiseData;

@@ -41,28 +41,37 @@ void main()
 	vec2 uv = (gl_FragCoord.xy) / res.xy;
 
     //  Initialize
-    vec3 col;
-    float alphaOut = 0.0;
+    //  Color
+    vec3 c = texture(colors, vec2(0.0, 0.0)).rgb;
+    float alpha = 0.0;
+    float maxAlpha = 0.0;
 
     //  Draw triangles
     for(int i = 0; i < N; ++i){
         //  Read vertex positions
         vec2 p0 = texture(p0s, vec2(i, 0.0)).xy;
+        //p0 = vec2(0.0, 0.0);
         vec2 p1 = texture(p1s, vec2(i, 0.0)).xy;
         vec2 p2 = texture(p2s, vec2(i, 0.0)).xy;
 
         //  Distance function
         float d = sdTriangle( p0, p1, p2, uv );
-
-        //  Color
-        col = vec3(1.0);
+        float pct = 1.0 - sign(d);
         
-        //  Alpha
-        float alpha = 1.0 - sign(d);
-        alpha = mix(alpha, 1.0, 1.0-smoothstep(0.0, 0.02, abs(d)));
-        alphaOut = max(alpha, alphaOut);
+        //  Color & Alpha
+        vec3 color = texture(colors, vec2(i, 0.0)).rgb;
+
+        alpha = max(alpha, pct);
+        alpha = mix(alpha, 1.0, 1.0-smoothstep(0.0, 0.01, d));
+        if(alpha > maxAlpha)
+        {
+            maxAlpha = alpha;
+            c = color;
+        }
+        else
+            c = mix(c, color, 1.0 - alpha);
     }
 
     //  Final out
-	fragColor = vec4(col, alphaOut);
+	fragColor = vec4(c, alpha);
 }

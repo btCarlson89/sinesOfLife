@@ -51,7 +51,7 @@ void Wind::setup() {
 	//	Noise factors
 	noiseFactors1.clear();
 	for (int i = 0; i < n; ++i) {
-		noiseFactors1.push_back(ofRandom(0.125, 0.5));
+		noiseFactors1.push_back(ofRandom(0.05, 0.125));
 	}
 	//
 	noiseFactors2.clear();
@@ -61,7 +61,7 @@ void Wind::setup() {
 	//
 	noiseFactors3.clear();
 	for (int i = 0; i < n; ++i) {
-		noiseFactors3.push_back(ofRandom(0.0, 0.5));
+		noiseFactors3.push_back(ofRandom(0.05, 0.2));
 	}
 	//
 	noiseFactors4.clear();
@@ -102,6 +102,7 @@ void Wind::writeOffsetsToTex(){
 	}
 	offsetTex.clear();
 	offsetTex.allocate(n, 1, GL_RGBA);
+	offsetTex.setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 	offsetTex.loadData(offsetData, n, 1, GL_RGBA);
 	delete offsetData;
 }
@@ -117,6 +118,7 @@ void Wind::writeTimeFactorsToTex(){
 	}
 	timeTex.clear();
 	timeTex.allocate(n, 1, GL_RGBA);
+	timeTex.setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 	timeTex.loadData(timeData, n, 1, GL_RGBA);
 	delete[] timeData;
 }
@@ -135,6 +137,7 @@ void Wind::writeNoiseToTex(){
 	}
 	noiseTex.clear();
 	noiseTex.allocate(n, 1, GL_RGBA);
+	noiseTex.setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 	noiseTex.loadData(noiseData, n, 1, GL_RGBA);
 
 	delete[] noiseData;

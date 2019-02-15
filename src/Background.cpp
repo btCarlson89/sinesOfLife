@@ -36,6 +36,11 @@ void Background::setColors(ofFloatColor tl, ofFloatColor tr, ofFloatColor br, of
 	colorBL = bl;
 }
 
+void Background::setGradient(float start, float stop){
+	gradientStart = start;
+	gradientEnd = stop;
+}
+
 void Background::draw() {
 	//	Draw to fbo
 	fbo.begin();
@@ -46,6 +51,8 @@ void Background::draw() {
 	shader.setUniform4f("colorTR", colorTR);
 	shader.setUniform4f("colorBL", colorBL);
 	shader.setUniform4f("colorBR", colorBR);
+	shader.setUniform1f("gradientStart", gradientStart);
+	shader.setUniform1f("gradientEnd", gradientEnd);
 	ofDrawRectangle(0, 0, w, h);
 	shader.end();
 	fbo.end();

@@ -3,6 +3,8 @@ bin/*.dll
 bin/*.exe
 bin/*.exp
 bin/*.ilk
+bin/*.iobj
+bin/*.ipdb
 bin/*.lib
 bin/*.pdb
 obj/

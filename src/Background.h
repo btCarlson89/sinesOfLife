@@ -10,6 +10,7 @@ public:
 
 	void setup();
 	void setColors(ofFloatColor tl, ofFloatColor tr, ofFloatColor br, ofFloatColor bl);
+	void setGradient(float start, float stop);
 	void draw();
 
 	void reloadShader();
@@ -27,6 +28,10 @@ private:
 	ofFloatColor colorTR;
 	ofFloatColor colorBR;
 	ofFloatColor colorBL;
+
+	//	Alpha gradient
+	float gradientStart = 0;
+	float gradientEnd = 0;
 
 	//	Fbo
 	ofFbo fbo;

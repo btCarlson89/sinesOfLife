@@ -3,6 +3,7 @@
 #include "ofMain.h"
 
 //	Addons
+#include "ofxGui.h"
 #include "ofxSpout.h"
 
 //	Project
@@ -32,8 +33,10 @@ public:
 	void drawScene3();
 	void drawScene4();
 	void drawScene5();
-	
 
+	void reset();
+	
+	//	Listeners
 	void keyPressed(int key);
 	void keyReleased(int key);
 	void mouseMoved(int x, int y );
@@ -50,10 +53,28 @@ public:
 
 	//	Window
 	float w, h;
+	float w1, w2, w3, w4, w5;
 
 	//	Spout
 	ofxSpout::Sender spoutSender;
 	ofTexture displayTex;
+
+	//------------------------------------------------
+	//	GUI
+	//------------------------------------------------
+	ofxPanel guiPanel;
+	ofxTextField w1TF;
+	ofxTextField w2TF;
+	ofxTextField w3TF;
+	ofxTextField w4TF;
+	ofxTextField w5TF;
+	bool showGUI = true;
+
+	void w1Update(string& w1);
+	void w2Update(string& w2);
+	void w3Update(string& w3);
+	void w4Update(string& w4);
+	void w5Update(string& w5);
 
 	//------------------------------------------------
 	//	SCENE 1
