@@ -195,7 +195,7 @@ void ofApp::setupScene3(){
 	bubbles3.setColor(ofColor(207, 90, 110));
 
 	//	Panel
-	float panelH = h / 4 + 100;
+	float panelH = h / 3 + 100;
 	panel3 = Panel(x, h - panelH, width, panelH, 0, 0, 0);
 
 	//	Wind
@@ -208,38 +208,72 @@ void ofApp::setupScene3(){
 	colors.clear();
 
 	//	Origami;
-	origami3 = Origami(x, y, width, height);
-	vector<ofPoint> p0s, p1s, p2s;
-	int numClusters = 3;
-	for (int i = 0; i < numClusters; ++i) {
-		float x0 = ofRandom(1.0);
-		float y0 = ofRandom(1.0);
-		ofPoint p0 = ofPoint(x0, y0);
-		vector<ofPoint> vertices;
-		int numTriangles = ofRandom(3, 9);
-		float dTheta0 = TWO_PI / float(numTriangles);
-		float theta = 0.0;
-		for (int j = 0; j < numTriangles; ++j) {
-			float dTheta = ofRandom(0.95 * dTheta0, 1.05 * dTheta0);
-			theta += dTheta;
-			float r = ofRandom(0.1, 0.15);
-			float x = r * cos(theta);
-			float y = r * sin(theta);
-			vertices.push_back(ofPoint(x0 + x, y0 + y));
-		}
-		for (int j = 0; j < numTriangles; ++j) {
-			p0s.push_back(p0);
-			p1s.push_back(vertices.at(j));
-			p2s.push_back(vertices.at((j + 1) % numTriangles));
-		}
-	}
-	origami3.setVertices(p0s, p1s, p2s);
-	colors.push_back(ofColor(8, 13, 15));
-	colors.push_back(ofColor(0, 49, 62));
-	colors.push_back(ofColor(0, 98, 125));
-	colors.push_back(ofColor(0, 195, 249));
-	origami3.setColors(colors);
+	origamiImage.load("images/origami.png");
+
+	//	Blood
+	float bW = 265.0;
+	float bH = h * 0.8;
+	blood3 = Blood(x + w3 - bW, y + 275, bW, bH, 32, 0.0, 0.005);
+	colors.push_back(ofColor(137, 59, 76));
+	colors.push_back(ofColor(207, 90, 110));
+	colors.push_back(ofColor(207, 90, 110));
+	colors.push_back(ofColor(207, 90, 110));
+	colors.push_back(ofColor(87, 56, 73));
+	colors.push_back(ofColor(255, 255, 255));
+	blood3.setColors(colors);
 	colors.clear();
+
+	//	Skull Image
+	skullImage.load("images/skulls.png");
+
+	//	Hex layer
+	int numRows = 15;
+	int numCols = 20;
+	hex3 = OctLayer(x, y, width, height, 40, numCols, numRows);
+	colors.push_back(ofColor(8, 13, 15));
+	colors.push_back(ofColor(32, 43, 47));
+	colors.push_back(ofColor(48, 59, 63));
+	colors.push_back(ofColor(146, 77, 55));
+	hex3.setColors(colors);
+	colors.clear();
+	vector<float> rowChances;
+	rowChances.push_back(0.0);	//	1
+	rowChances.push_back(0.0);	//	2
+	rowChances.push_back(0.0);	//	3
+	rowChances.push_back(0.0);	//	4
+	rowChances.push_back(0.0);	//	5
+	rowChances.push_back(0.0);	//	6
+	rowChances.push_back(0.0);	//	7
+	rowChances.push_back(0.0);	//	8
+	rowChances.push_back(0.5);	//	9
+	rowChances.push_back(0.75);	//	10
+	rowChances.push_back(0.95);	//	11
+	rowChances.push_back(0.75);	//	12
+	rowChances.push_back(0.5);	//	13
+	rowChances.push_back(0.15);	//	14
+	rowChances.push_back(0.0);	//	15
+	vector<float> colChances;
+	colChances.push_back(0.15);	//	1
+	colChances.push_back(0.15);	//	2
+	colChances.push_back(0.25);	//	3
+	colChances.push_back(0.5);	//	4
+	colChances.push_back(0.65);	//	5
+	colChances.push_back(0.95);	//	6
+	colChances.push_back(0.85);	//	7
+	colChances.push_back(0.65);	//	8
+	colChances.push_back(0.5);	//	9
+	colChances.push_back(0.45);	//	10
+	colChances.push_back(0.5);	//	11
+	colChances.push_back(0.65);	//	12
+	colChances.push_back(0.85);	//	13
+	colChances.push_back(0.95);	//	14
+	colChances.push_back(0.65);	//	15
+	colChances.push_back(0.5);	//	16
+	colChances.push_back(0.25);	//	17
+	colChances.push_back(0.15);	//	18
+	colChances.push_back(0.15);	//	19
+	colChances.push_back(0.15);	//	20
+	hex3.setChances(colChances, rowChances);
 }
 
 //--------------------------------------------------------------
@@ -252,10 +286,10 @@ void ofApp::setupScene4(){
 
 	//	Background
 	bg4 = Background(x, y, width, height);
-	ofColor bgColorTL(4, 81, 107);
-	ofColor bgColorTR(52, 143, 100);
-	ofColor bgColorBR(6, 44, 61);
-	ofColor bgColorBL(5, 12, 18);
+	ofColor bgColorTL(103, 145, 144);
+	ofColor bgColorTR(53, 53, 63);
+	ofColor bgColorBR(203, 199, 200);
+	ofColor bgColorBL(152, 192, 192);
 	bg4.setColors(bgColorTL, bgColorTR, bgColorBR, bgColorBL);
 }
 
@@ -269,10 +303,10 @@ void ofApp::setupScene5(){
 
 	//	Background
 	bg5 = Background(x, y, width, height);
-	ofColor bgColorTL(255, 127, 127);
+	ofColor bgColorTL(53, 53, 63);
 	ofColor bgColorTR(0, 0, 0);
 	ofColor bgColorBR(0, 0, 0);
-	ofColor bgColorBL(255, 255, 255);
+	ofColor bgColorBL(203, 199, 200);
 	bg5.setColors(bgColorTL, bgColorTR, bgColorBR, bgColorBL);
 }
 
@@ -302,6 +336,7 @@ void ofApp::draw(){
 	if (showGUI) guiPanel.draw();
 }
 
+//--------------------------------------------------------------
 void ofApp::drawScene1(){
 	//	Background
 	bg1.draw();
@@ -355,7 +390,23 @@ void ofApp::drawScene3(){
 	wind3a.draw();
 
 	//	Origami
-	origami3.draw();
+	//	Skull Image
+	ofPushStyle();
+	ofSetColor(255);
+	origamiImage.draw(w1 + w2, h * 0.45);
+	ofPopStyle();
+
+	//	Blood
+	blood3.draw();
+	
+	//	Skull Image
+	ofPushStyle();
+	ofSetColor(255);
+	skullImage.draw(w1 + w2 + w3 - skullImage.getWidth(), h - skullImage.getHeight() - 50);
+	ofPopStyle();
+
+	//	Hex layer
+	hex3.draw();
 }
 
 //--------------------------------------------------------------
@@ -467,7 +518,8 @@ void ofApp::reloadShaders() {
 	bubbles3.reloadShader();
 	wind3a.reloadShader();
 	panel3.reloadShader();
-	origami3.reloadShader();
+	blood3.reloadShader();
+	hex3.reloadShader();
 	//	SCENE 4
 	bg4.reloadShader();
 	//	SCENE 5

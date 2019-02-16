@@ -8,10 +8,11 @@
 
 //	Project
 #include "Background.h"
+#include "Blood.h"
 #include "BubbleLayer.h"
 #include "Heat.h"
 #include "MultiDot.h"
-#include "Origami.h"
+#include "Octogons.h"
 #include "Panel.h"
 #include "Wind.h"
 
@@ -125,7 +126,16 @@ public:
 	Panel panel3;
 
 	//	Origami
-	Origami origami3;
+	ofImage origamiImage;
+	
+	//	Skulls
+	ofImage skullImage;
+
+	//	Blood
+	Blood blood3;
+
+	//	Hex Layer
+	OctLayer hex3;
 
 	//------------------------------------------------
 	//	SCENE 4

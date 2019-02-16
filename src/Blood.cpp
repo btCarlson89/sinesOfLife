@@ -1,6 +1,6 @@
-#include "Wind.h"
+#include "Blood.h"
 
-Wind::Wind() :
+Blood::Blood() :
 	x(0),
 	y(0),
 	w(100),
@@ -11,7 +11,7 @@ Wind::Wind() :
 	setup();
 }
 
-Wind::Wind(float xpos, float ypos, float width, float height, float numLines, float minOffset, float maxOffset) :
+Blood::Blood(float xpos, float ypos, float width, float height, float numLines, float minOffset, float maxOffset) :
 	x(xpos),
 	y(ypos),
 	w(width),
@@ -22,12 +22,12 @@ Wind::Wind(float xpos, float ypos, float width, float height, float numLines, fl
 	setup();
 }
 
-void Wind::setup() {
+void Blood::setup() {
 	//	Allocate fbo
 	fbo.allocate(w, h, GL_RGBA32F_ARB);
 
 	//	Load shader
-	shader.load("shaders/wind");
+	shader.load("shaders/blood");
 
 	//	Default color
 	colors.clear();
@@ -51,7 +51,7 @@ void Wind::setup() {
 	//	Noise factors
 	noiseFactors1.clear();
 	for (int i = 0; i < n; ++i) {
-		noiseFactors1.push_back(ofRandom(0.05, 0.2));
+		noiseFactors1.push_back(ofRandom(0.05, 0.125));
 	}
 	//
 	noiseFactors2.clear();
@@ -61,7 +61,7 @@ void Wind::setup() {
 	//
 	noiseFactors3.clear();
 	for (int i = 0; i < n; ++i) {
-		noiseFactors3.push_back(ofRandom(0.05, 0.4));
+		noiseFactors3.push_back(ofRandom(0.05, 0.2));
 	}
 	//
 	noiseFactors4.clear();
@@ -71,12 +71,12 @@ void Wind::setup() {
 	writeNoiseToTex();
 }
 
-void Wind::setColors(vector<ofFloatColor> colors) {
+void Blood::setColors(vector<ofFloatColor> colors) {
 	this->colors = colors;
 	writeColorsToTex();
 }
 
-void Wind::writeColorsToTex(){
+void Blood::writeColorsToTex(){
 	float *colorData = new float[n * 4];
 	for (int i = 0; i < n; ++i) {
 		ofFloatColor color = colors.at(ofRandom(colors.size()));
@@ -91,7 +91,7 @@ void Wind::writeColorsToTex(){
 	delete[] colorData;
 }
 
-void Wind::writeOffsetsToTex(){
+void Blood::writeOffsetsToTex(){
 	float *offsetData = new float[n * 4];
 	for (int i = 0; i < n; ++i) {
 		float offset = offsets.at(i);
@@ -107,7 +107,7 @@ void Wind::writeOffsetsToTex(){
 	delete offsetData;
 }
 
-void Wind::writeTimeFactorsToTex(){
+void Blood::writeTimeFactorsToTex(){
 	float *timeData = new float[n * 4];
 	for (int i = 0; i < n; ++i) {
 		float timeFactor = timeFactors.at(i);
@@ -123,7 +123,7 @@ void Wind::writeTimeFactorsToTex(){
 	delete[] timeData;
 }
 
-void Wind::writeNoiseToTex(){
+void Blood::writeNoiseToTex(){
 	float *noiseData = new float[n * 4];
 	for (int i = 0; i < n; ++i) {
 		float nf1 = noiseFactors1.at(i);
@@ -143,7 +143,7 @@ void Wind::writeNoiseToTex(){
 	delete[] noiseData;
 }
 
-void Wind::draw() {
+void Blood::draw() {
 	//	Draw to fbo
 	fbo.begin();
 	ofClear(0, 0, 0, 0);
@@ -166,8 +166,8 @@ void Wind::draw() {
 	fbo.draw(x, y);
 }
 
-void Wind::reloadShader()
+void Blood::reloadShader()
 {
 	shader.unload();
-	shader.load("shaders/wind");
+	shader.load("shaders/blood");
 }

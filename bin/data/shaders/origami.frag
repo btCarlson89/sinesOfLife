@@ -45,9 +45,10 @@ void main()
     vec3 c = texture(colors, vec2(0.0, 0.0)).rgb;
     float alpha = 0.0;
     float maxAlpha = 0.0;
+    float colorMix = 0.0;
 
     //  Draw triangles
-    for(int i = 0; i < N; ++i){
+    for(int i = 0; i < 3; ++i){
         //  Read vertex positions
         vec2 p0 = texture(p0s, vec2(i, 0.0)).xy;
         //p0 = vec2(0.0, 0.0);
@@ -60,16 +61,16 @@ void main()
         
         //  Color & Alpha
         vec3 color = texture(colors, vec2(i, 0.0)).rgb;
-
-        alpha = max(alpha, pct);
-        alpha = mix(alpha, 1.0, 1.0-smoothstep(0.0, 0.01, d));
+        colorMix = mix(pct, 1.0, 1.0-smoothstep(0.0, 0.005, d));
+        alpha = max(alpha, colorMix);
+        alpha = mix(alpha, 1.0, 1.0-smoothstep(0.0, 0.005, d));
         if(alpha > maxAlpha)
         {
             maxAlpha = alpha;
             c = color;
         }
         else
-            c = mix(c, color, 1.0 - alpha);
+            c = mix(c, color, colorMix);
     }
 
     //  Final out
