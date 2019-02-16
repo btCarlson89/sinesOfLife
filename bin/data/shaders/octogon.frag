@@ -88,7 +88,8 @@ void main(){
         r -= dr;
         d = sdOctogon(pos - uv, r);
         float m = 1.0 - sign(d);
-        m = mix(m, 1.0, 1.0-smoothstep(0.0,0.0025,abs(d)));
+        m = mix(m, 1.0, 1.0-smoothstep(0.0,0.00125,abs(d)));
+        m = clamp(m, 0.0, 1.0);
         if(m < maxM1) m = maxM1;
         else maxM1 = m;
         color = mix(color1, color2, m).rgb;
@@ -97,7 +98,8 @@ void main(){
         r -= dr;
         d = sdOctogon(pos - uv, r);
         m = 1.0 - sign(d);
-        m = mix(m, 1.0, 1.0-smoothstep(0.0,0.0025,abs(d)));
+        m = mix(m, 1.0, 1.0-smoothstep(0.0,0.00125,abs(d)));
+        m = clamp(m, 0.0, 1.0);
         if(m < maxM2) m = maxM2;
         else maxM2 = m;
         color = mix(color, color3.rgb, m).rgb;
@@ -106,7 +108,8 @@ void main(){
         r -= dr;
         d = sdOctogon(pos - uv, r);
         m = 1.0 - sign(d);
-        m = mix(m, 1.0, 1.0-smoothstep(0.0,0.0025,abs(d)));
+        m = mix(m, 1.0, 1.0-smoothstep(0.0,0.00125,abs(d)));
+        m = clamp(m, 0.0, 1.0);
         if(m < maxM3) m = maxM3;
         else maxM3 = m;
         color = mix(color, color4.rgb, m).rgb;

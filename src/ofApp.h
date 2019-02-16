@@ -127,6 +127,9 @@ public:
 
 	//	Origami
 	ofImage origamiImage;
+
+	//	Wind
+	Wind wind3b;
 	
 	//	Skulls
 	ofImage skullImage;
@@ -134,8 +137,11 @@ public:
 	//	Blood
 	Blood blood3;
 
-	//	Hex Layer
-	OctLayer hex3;
+	//	Oct Layer A
+	OctLayer oct3a;
+
+	//	Oct Layer B
+	OctLayer oct3b;
 
 	//------------------------------------------------
 	//	SCENE 4

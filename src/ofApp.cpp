@@ -210,6 +210,17 @@ void ofApp::setupScene3(){
 	//	Origami;
 	origamiImage.load("images/origami.png");
 
+	//	Wind B
+	wind3b = Wind(x, y, width, height, 48, 0.15, 0.25);
+	colors.push_back(ofColor(16, 27, 31));
+	colors.push_back(ofColor(0, 48, 61));
+	colors.push_back(ofColor(0, 97, 124));
+	colors.push_back(ofColor(0, 97, 124));
+	colors.push_back(ofColor(0, 97, 124));
+	colors.push_back(ofColor(0, 195, 248));
+	wind3b.setColors(colors);
+	colors.clear();
+
 	//	Blood
 	float bW = 265.0;
 	float bH = h * 0.8;
@@ -226,15 +237,15 @@ void ofApp::setupScene3(){
 	//	Skull Image
 	skullImage.load("images/skulls.png");
 
-	//	Hex layer
+	//	Oct layer A
 	int numRows = 15;
 	int numCols = 20;
-	hex3 = OctLayer(x, y, width, height, 40, numCols, numRows);
+	oct3a = OctLayer(x, y, width, height, 40, numCols, numRows);
 	colors.push_back(ofColor(8, 13, 15));
 	colors.push_back(ofColor(32, 43, 47));
 	colors.push_back(ofColor(48, 59, 63));
 	colors.push_back(ofColor(146, 77, 55));
-	hex3.setColors(colors);
+	oct3a.setColors(colors);
 	colors.clear();
 	vector<float> rowChances;
 	rowChances.push_back(0.0);	//	1
@@ -250,11 +261,11 @@ void ofApp::setupScene3(){
 	rowChances.push_back(0.95);	//	11
 	rowChances.push_back(0.75);	//	12
 	rowChances.push_back(0.5);	//	13
-	rowChances.push_back(0.15);	//	14
+	rowChances.push_back(0.05);	//	14
 	rowChances.push_back(0.0);	//	15
 	vector<float> colChances;
-	colChances.push_back(0.15);	//	1
-	colChances.push_back(0.15);	//	2
+	colChances.push_back(0.25);	//	1
+	colChances.push_back(0.25);	//	2
 	colChances.push_back(0.25);	//	3
 	colChances.push_back(0.5);	//	4
 	colChances.push_back(0.65);	//	5
@@ -272,8 +283,57 @@ void ofApp::setupScene3(){
 	colChances.push_back(0.25);	//	17
 	colChances.push_back(0.15);	//	18
 	colChances.push_back(0.15);	//	19
-	colChances.push_back(0.15);	//	20
-	hex3.setChances(colChances, rowChances);
+	colChances.push_back(0.05);	//	20
+	oct3a.setChances(colChances, rowChances);
+
+	//	Oct layer B
+	numRows = 15;
+	numCols = 20;
+	oct3b = OctLayer(x, y, width, height, 40, numCols, numRows);
+	colors.push_back(ofColor(87, 56, 73));
+	colors.push_back(ofColor(137, 59, 76));
+	colors.push_back(ofColor(8, 13, 15));
+	colors.push_back(ofColor(137, 59, 76));
+	oct3b.setColors(colors);
+	colors.clear();
+	rowChances.clear();
+	rowChances.push_back(0.15);	//	1
+	rowChances.push_back(0.25);	//	2
+	rowChances.push_back(0.5);	//	3
+	rowChances.push_back(0.75);	//	4
+	rowChances.push_back(0.95);	//	5
+	rowChances.push_back(0.05);	//	6
+	rowChances.push_back(0.0);	//	7
+	rowChances.push_back(0.0);	//	8
+	rowChances.push_back(0.0);	//	9
+	rowChances.push_back(0.0);	//	10
+	rowChances.push_back(0.0);	//	11
+	rowChances.push_back(0.0);	//	12
+	rowChances.push_back(0.0);	//	13
+	rowChances.push_back(0.0);	//	14
+	rowChances.push_back(0.0);	//	15
+	colChances.clear();
+	colChances.push_back(0);	//	1
+	colChances.push_back(0);	//	2
+	colChances.push_back(0);	//	3
+	colChances.push_back(0);	//	4
+	colChances.push_back(0);	//	5
+	colChances.push_back(0);	//	6
+	colChances.push_back(0);	//	7
+	colChances.push_back(0);	//	8
+	colChances.push_back(0);	//	9
+	colChances.push_back(0.45);	//	10
+	colChances.push_back(0.5);	//	11
+	colChances.push_back(0.65);	//	12
+	colChances.push_back(0.85);	//	13
+	colChances.push_back(0.95);	//	14
+	colChances.push_back(0.65);	//	15
+	colChances.push_back(0.5);	//	16
+	colChances.push_back(0.25);	//	17
+	colChances.push_back(0.15);	//	18
+	colChances.push_back(0.15);	//	19
+	colChances.push_back(0.05);	//	20
+	oct3b.setChances(colChances, rowChances);
 }
 
 //--------------------------------------------------------------
@@ -390,11 +450,13 @@ void ofApp::drawScene3(){
 	wind3a.draw();
 
 	//	Origami
-	//	Skull Image
 	ofPushStyle();
 	ofSetColor(255);
 	origamiImage.draw(w1 + w2, h * 0.45);
 	ofPopStyle();
+
+	//	Wind B
+	wind3b.draw();
 
 	//	Blood
 	blood3.draw();
@@ -405,8 +467,11 @@ void ofApp::drawScene3(){
 	skullImage.draw(w1 + w2 + w3 - skullImage.getWidth(), h - skullImage.getHeight() - 50);
 	ofPopStyle();
 
-	//	Hex layer
-	hex3.draw();
+	//	Oct layer A
+	oct3a.draw();
+
+	//	Oct layer B
+	oct3b.draw();
 }
 
 //--------------------------------------------------------------
@@ -518,8 +583,10 @@ void ofApp::reloadShaders() {
 	bubbles3.reloadShader();
 	wind3a.reloadShader();
 	panel3.reloadShader();
+	wind3b.reloadShader();
 	blood3.reloadShader();
-	hex3.reloadShader();
+	oct3a.reloadShader();
+	oct3b.reloadShader();
 	//	SCENE 4
 	bg4.reloadShader();
 	//	SCENE 5
