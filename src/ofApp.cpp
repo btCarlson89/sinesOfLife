@@ -23,7 +23,7 @@ void ofApp::setup(){
 	w2 = settings.getChild("W2").getFloatValue();
 	w3 = settings.getChild("W3").getFloatValue();
 	w4 = settings.getChild("W4").getFloatValue();
-	w5 = settings.getChild("W5").getFloatValue();
+	w5 = w - w4 - w3 - w2 - w1;
 
 	//	GUI Listeners
 	w1TF.addListener(this, &ofApp::w1Update);
@@ -39,7 +39,6 @@ void ofApp::setup(){
 	guiPanel.add(w3TF.setup("W3", ofToString(w3), "10", "1000", 200, 20));
 	guiPanel.add(w4TF.setup("W4", ofToString(w4), "10", "1000", 200, 20));
 	guiPanel.add(w5TF.setup("W5", ofToString(w5), "10", "1000", 200, 20));
-	guiPanel.loadFromFile("settings.xml");
 
 	//	Scenes
 	setupScene1();
@@ -177,61 +176,78 @@ void ofApp::setupScene3(){
 
 	//	Background
 	bg3 = Background(x, y, width, height);
+	ofColor bgColorTL(0, 0, 0);
+	ofColor bgColorTR(44, 62, 60);
+	ofColor bgColorBR(0, 0, 0);
+	ofColor bgColorBL(0, 0, 0);
+	bg3.setColors(bgColorTL, bgColorTR, bgColorBR, bgColorBL);
+}
+
+//--------------------------------------------------------------
+void ofApp::setupScene4(){
+	//	Dimensions
+	float x = w1 + w2+ w3;
+	float y = 0;
+	float width = w4;
+	float height = h;
+
+	//	Background
+	bg4 = Background(x, y, width, height);
 	ofColor bgColorTL(18, 41, 50);
 	ofColor bgColorTR(179, 97, 98);
 	ofColor bgColorBR(0, 191, 248);
 	ofColor bgColorBL(255, 255, 255);
-	bg3.setColors(bgColorTL, bgColorTR, bgColorBR, bgColorBL);
+	bg4.setColors(bgColorTL, bgColorTR, bgColorBR, bgColorBL);
 
 	//	Heat
-	heat3 = Heat(x, y, width, height, 16);
+	heat4 = Heat(x, y, width, height, 16);
 	vector<ofFloatColor> colors;
 	colors.push_back(ofColor(207, 90, 110));
-	heat3.setColors(colors);
+	heat4.setColors(colors);
 	colors.clear();
 
 	//	Bubbles
-	bubbles3 = BubbleLayer(x, y, width, height, 32);
-	bubbles3.setColor(ofColor(207, 90, 110));
+	bubbles4 = BubbleLayer(x, y, width, height, 32);
+	bubbles4.setColor(ofColor(207, 90, 110));
 
 	//	Panel
 	float panelH = h / 3 + 100;
-	panel3 = Panel(x, h - panelH, width, panelH, 0, 0, 0);
+	panel4 = Panel(x, h - panelH, width, panelH, 0, 0, 0);
 
 	//	Wind
-	wind3a = Wind(x, y, width, height, 32, 0.6, 0.65);
+	wind4a = Wind(x, y, width, height, 32, 0.6, 0.65);
 	colors.push_back(ofColor(137, 59, 76));
 	colors.push_back(ofColor(207, 90, 110));
 	colors.push_back(ofColor(87, 56, 73));
 	colors.push_back(ofColor(255, 255, 255));
-	wind3a.setColors(colors);
+	wind4a.setColors(colors);
 	colors.clear();
 
 	//	Origami;
 	origamiImage.load("images/origami.png");
 
 	//	Wind B
-	wind3b = Wind(x, y, width, height, 48, 0.15, 0.25);
+	wind4b = Wind(x, y, width, height, 48, 0.15, 0.25);
 	colors.push_back(ofColor(16, 27, 31));
 	colors.push_back(ofColor(0, 48, 61));
 	colors.push_back(ofColor(0, 97, 124));
 	colors.push_back(ofColor(0, 97, 124));
 	colors.push_back(ofColor(0, 97, 124));
 	colors.push_back(ofColor(0, 195, 248));
-	wind3b.setColors(colors);
+	wind4b.setColors(colors);
 	colors.clear();
 
 	//	Blood
 	float bW = 265.0;
 	float bH = h * 0.8;
-	blood3 = Blood(x + w3 - bW, y + 275, bW, bH, 32, 0.0, 0.005);
+	blood4 = Blood(x + w3 - bW, y + 275, bW, bH, 32, 0.0, 0.005);
 	colors.push_back(ofColor(137, 59, 76));
 	colors.push_back(ofColor(207, 90, 110));
 	colors.push_back(ofColor(207, 90, 110));
 	colors.push_back(ofColor(207, 90, 110));
 	colors.push_back(ofColor(87, 56, 73));
 	colors.push_back(ofColor(255, 255, 255));
-	blood3.setColors(colors);
+	blood4.setColors(colors);
 	colors.clear();
 
 	//	Skull Image
@@ -240,12 +256,12 @@ void ofApp::setupScene3(){
 	//	Oct layer A
 	int numRows = 15;
 	int numCols = 20;
-	oct3a = OctLayer(x, y, width, height, 40, numCols, numRows);
+	oct4a = OctLayer(x, y, width, height, 40, numCols, numRows);
 	colors.push_back(ofColor(8, 13, 15));
 	colors.push_back(ofColor(32, 43, 47));
 	colors.push_back(ofColor(48, 59, 63));
 	colors.push_back(ofColor(146, 77, 55));
-	oct3a.setColors(colors);
+	oct4a.setColors(colors);
 	colors.clear();
 	vector<float> rowChances;
 	rowChances.push_back(0.0);	//	1
@@ -284,17 +300,17 @@ void ofApp::setupScene3(){
 	colChances.push_back(0.15);	//	18
 	colChances.push_back(0.15);	//	19
 	colChances.push_back(0.05);	//	20
-	oct3a.setChances(colChances, rowChances);
+	oct4a.setChances(colChances, rowChances);
 
 	//	Oct layer B
 	numRows = 15;
 	numCols = 20;
-	oct3b = OctLayer(x, y, width, height, 40, numCols, numRows);
+	oct4b = OctLayer(x, y, width, height, 40, numCols, numRows);
+	colors.push_back(ofColor(161, 141, 110));
+	colors.push_back(ofColor(137, 59, 76));
+	colors.push_back(ofColor(207, 90, 110));
 	colors.push_back(ofColor(87, 56, 73));
-	colors.push_back(ofColor(137, 59, 76));
-	colors.push_back(ofColor(8, 13, 15));
-	colors.push_back(ofColor(137, 59, 76));
-	oct3b.setColors(colors);
+	oct4b.setColors(colors);
 	colors.clear();
 	rowChances.clear();
 	rowChances.push_back(0.15);	//	1
@@ -333,24 +349,7 @@ void ofApp::setupScene3(){
 	colChances.push_back(0.15);	//	18
 	colChances.push_back(0.15);	//	19
 	colChances.push_back(0.05);	//	20
-	oct3b.setChances(colChances, rowChances);
-}
-
-//--------------------------------------------------------------
-void ofApp::setupScene4(){
-	//	Dimensions
-	float x = w1 + w2+ w3;
-	float y = 0;
-	float width = w4;
-	float height = h;
-
-	//	Background
-	bg4 = Background(x, y, width, height);
-	ofColor bgColorTL(103, 145, 144);
-	ofColor bgColorTR(53, 53, 63);
-	ofColor bgColorBR(203, 199, 200);
-	ofColor bgColorBL(152, 192, 192);
-	bg4.setColors(bgColorTL, bgColorTR, bgColorBR, bgColorBL);
+	oct4b.setChances(colChances, rowChances);
 }
 
 //--------------------------------------------------------------
@@ -363,10 +362,10 @@ void ofApp::setupScene5(){
 
 	//	Background
 	bg5 = Background(x, y, width, height);
-	ofColor bgColorTL(53, 53, 63);
+	ofColor bgColorTL(179, 97, 98);
 	ofColor bgColorTR(0, 0, 0);
 	ofColor bgColorBR(0, 0, 0);
-	ofColor bgColorBL(203, 199, 200);
+	ofColor bgColorBL(0, 191, 248);
 	bg5.setColors(bgColorTL, bgColorTR, bgColorBR, bgColorBL);
 }
 
@@ -434,50 +433,50 @@ void ofApp::drawScene2(){
 
 //--------------------------------------------------------------
 void ofApp::drawScene3(){
-	//	Background
+	// Background
 	bg3.draw();
-
-	//	Heat
-	heat3.draw();
-
-	//	Bubbles
-	bubbles3.draw();
-
-	//	Panel
-	panel3.draw();
-
-	//	Wind A
-	wind3a.draw();
-
-	//	Origami
-	ofPushStyle();
-	ofSetColor(255);
-	origamiImage.draw(w1 + w2, h * 0.45);
-	ofPopStyle();
-
-	//	Wind B
-	wind3b.draw();
-
-	//	Blood
-	blood3.draw();
-	
-	//	Skull Image
-	ofPushStyle();
-	ofSetColor(255);
-	skullImage.draw(w1 + w2 + w3 - skullImage.getWidth(), h - skullImage.getHeight() - 50);
-	ofPopStyle();
-
-	//	Oct layer A
-	oct3a.draw();
-
-	//	Oct layer B
-	oct3b.draw();
 }
 
 //--------------------------------------------------------------
 void ofApp::drawScene4(){
 	//	Background
 	bg4.draw();
+
+	//	Heat
+	heat4.draw();
+
+	//	Bubbles
+	bubbles4.draw();
+
+	//	Panel
+	panel4.draw();
+
+	//	Wind A
+	wind4a.draw();
+
+	//	Origami
+	ofPushStyle();
+	ofSetColor(255);
+	origamiImage.draw(w1 + w2 + w3, h * 0.45);
+	ofPopStyle();
+
+	//	Wind B
+	wind4b.draw();
+
+	//	Blood
+	blood4.draw();
+
+	//	Skull Image
+	ofPushStyle();
+	ofSetColor(255);
+	skullImage.draw(w1 + w2 + w3 + w4 - skullImage.getWidth(), h - skullImage.getHeight() - 50);
+	ofPopStyle();
+
+	//	Oct layer A
+	oct4a.draw();
+
+	//	Oct layer B
+	oct4b.draw();
 }
 
 //--------------------------------------------------------------
@@ -505,7 +504,7 @@ void ofApp::keyPressed(int key){
 		break;
 	case 'h':
 		heat2.reset();
-		heat3.reset();
+		heat4.reset();
 		break;
 	case 'r':
 		reloadShaders();
@@ -579,16 +578,16 @@ void ofApp::reloadShaders() {
 	mDot2.reloadShader();
 	//	SCENE 3
 	bg3.reloadShader();
-	heat3.reloadShader();
-	bubbles3.reloadShader();
-	wind3a.reloadShader();
-	panel3.reloadShader();
-	wind3b.reloadShader();
-	blood3.reloadShader();
-	oct3a.reloadShader();
-	oct3b.reloadShader();
 	//	SCENE 4
 	bg4.reloadShader();
+	heat4.reloadShader();
+	bubbles4.reloadShader();
+	wind4a.reloadShader();
+	panel4.reloadShader();
+	wind4b.reloadShader();
+	blood4.reloadShader();
+	oct4a.reloadShader();
+	oct4b.reloadShader();
 	//	SCENE 5
 	bg5.reloadShader();
 }

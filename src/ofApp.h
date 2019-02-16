@@ -112,42 +112,43 @@ public:
 	//------------------------------------------------
 	//	Background
 	Background bg3;
-
-	//	Heat
-	Heat heat3;
-
-	//	Bubble layer
-	BubbleLayer bubbles3;
-
-	//	Wind
-	Wind wind3a;
-
-	//	Panel
-	Panel panel3;
-
-	//	Origami
-	ofImage origamiImage;
-
-	//	Wind
-	Wind wind3b;
 	
-	//	Skulls
-	ofImage skullImage;
-
-	//	Blood
-	Blood blood3;
-
-	//	Oct Layer A
-	OctLayer oct3a;
-
-	//	Oct Layer B
-	OctLayer oct3b;
 
 	//------------------------------------------------
 	//	SCENE 4
 	//------------------------------------------------
 	//	Background
 	Background bg4;
+
+	//	Heat
+	Heat heat4;
+
+	//	Bubble layer
+	BubbleLayer bubbles4;
+
+	//	Wind
+	Wind wind4a;
+
+	//	Panel
+	Panel panel4;
+
+	//	Origami
+	ofImage origamiImage;
+
+	//	Wind
+	Wind wind4b;
+
+	//	Skulls
+	ofImage skullImage;
+
+	//	Blood
+	Blood blood4;
+
+	//	Oct Layer A
+	OctLayer oct4a;
+
+	//	Oct Layer B
+	OctLayer oct4b;
 
 	//------------------------------------------------
 	//	SCENE 5
