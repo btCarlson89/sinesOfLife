@@ -27,10 +27,18 @@ void BubbleLayer::setup() {
 	shader.load("shaders/bubbles");
 	//	Default color
 	color = ofFloatColor(1, 1, 1, 1);
+	//	Default gradient
+	gradientStart = 0;
+	gradientEnd = 0;
 }
 
 void BubbleLayer::setColor(ofFloatColor color) {
 	this->color = color;
+}
+
+void BubbleLayer::setGradient(float start, float end){
+	gradientStart = start;
+	gradientEnd = end;
 }
 
 void BubbleLayer::draw() {
@@ -42,6 +50,8 @@ void BubbleLayer::draw() {
 	shader.setUniform4f("color", color);
 	shader.setUniform2f("res", w, h);
 	shader.setUniform1f("time", ofGetElapsedTimef() * 0.5);
+	shader.setUniform1f("gradientStart", gradientStart);
+	shader.setUniform1f("gradientEnd", gradientEnd);
 	ofDrawRectangle(0, 0, w, h);
 	shader.end();
 	fbo.end();

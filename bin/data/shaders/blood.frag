@@ -9,6 +9,9 @@ uniform sampler2DRect offsets;
 uniform sampler2DRect timeFactors;
 uniform sampler2DRect noiseFactors;
 
+uniform float gradientStart;
+uniform float gradientEnd;
+
 in vec2 vTexCoord;
 
 out vec4 fragColor;
@@ -68,8 +71,8 @@ void main(){
             c = mix(c, color, pct);
     }
 
-    
-	
+    //  Alpha gradient
+    alpha *= smoothstep(gradientStart, gradientEnd, uv.x);
     
 	fragColor = vec4(c,alpha);
 }

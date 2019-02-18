@@ -9,6 +9,7 @@ public:
 
 	void setup();
 	void setColors(vector<ofFloatColor> colors);
+	void setGradient(float start, float end);
 
 	void writeColorsToTex();
 	void writeOffsetsToTex();
@@ -36,6 +37,10 @@ private:
 	//	Color
 	vector<ofFloatColor> colors;
 	ofTexture colorTex;
+
+	//	Alpha Gradient
+	float gradientStart;
+	float gradientEnd;
 
 	//	Offsets
 	vector<float> offsets;

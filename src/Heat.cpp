@@ -30,6 +30,10 @@ void Heat::setup(){
 	colors.clear();
 	colors.push_back( ofFloatColor(1, 1, 1, 1) );
 	writeColorsToTex();
+	
+	// Default gradient
+	gradientStart = 0;
+	gradientEnd = 0;
 
 	//	Offsets
 	offsets.clear();
@@ -71,6 +75,11 @@ void Heat::setup(){
 void Heat::setColors(vector<ofFloatColor> colors){
 	this->colors = colors;
 	writeColorsToTex();
+}
+
+void Heat::setGradient(float start, float end){
+	gradientStart = start;
+	gradientEnd = end;
 }
 
 void Heat::writeColorsToTex(){
@@ -151,6 +160,8 @@ void Heat::draw(){
 	shader.setUniform2f("res", w, h);
 	shader.setUniform1f("time", ofGetElapsedTimef());
 	shader.setUniform1i("N", n);
+	shader.setUniform1f("gradientStart", gradientStart);
+	shader.setUniform1f("gradientEnd", gradientEnd);
 	shader.setUniformTexture("colors", colorTex, 0);
 	shader.setUniformTexture("offsets", offsetTex, 1);
 	shader.setUniformTexture("timeFactors", timeTex, 2);

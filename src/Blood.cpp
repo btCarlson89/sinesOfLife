@@ -76,6 +76,11 @@ void Blood::setColors(vector<ofFloatColor> colors) {
 	writeColorsToTex();
 }
 
+void Blood::setGradient(float start, float end){
+	gradientStart = start;
+	gradientEnd = end;
+}
+
 void Blood::writeColorsToTex(){
 	float *colorData = new float[n * 4];
 	for (int i = 0; i < n; ++i) {
@@ -153,6 +158,8 @@ void Blood::draw() {
 	shader.setUniform2f("res", w, h);
 	shader.setUniform1f("time", ofGetElapsedTimef());
 	shader.setUniform1i("N", n);
+	shader.setUniform1f("gradientStart", gradientStart);
+	shader.setUniform1f("gradientEnd", gradientEnd);
 	shader.setUniformTexture("colors", colorTex, 0);
 	shader.setUniformTexture("offsets", offsetTex, 1);
 	shader.setUniformTexture("timeFactors", timeTex, 2);

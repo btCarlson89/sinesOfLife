@@ -34,6 +34,10 @@ void Wind::setup() {
 	colors.push_back(ofFloatColor(1, 1, 1, 1));
 	writeColorsToTex();
 
+	//	Default gradient
+	gradientStart = 0.0;
+	gradientEnd = 0.0;
+
 	//	Offsets
 	offsets.clear();
 	for (int i = 0; i < n; ++i) {
@@ -74,6 +78,11 @@ void Wind::setup() {
 void Wind::setColors(vector<ofFloatColor> colors) {
 	this->colors = colors;
 	writeColorsToTex();
+}
+
+void Wind::setGradient(float start, float end){
+	gradientStart = start;
+	gradientEnd = end;
 }
 
 void Wind::writeColorsToTex(){
@@ -153,6 +162,8 @@ void Wind::draw() {
 	shader.setUniform2f("res", w, h);
 	shader.setUniform1f("time", ofGetElapsedTimef());
 	shader.setUniform1i("N", n);
+	shader.setUniform1f("gradientStart", gradientStart);
+	shader.setUniform1f("gradientEnd", gradientEnd);
 	shader.setUniformTexture("colors", colorTex, 0);
 	shader.setUniformTexture("offsets", offsetTex, 1);
 	shader.setUniformTexture("timeFactors", timeTex, 2);

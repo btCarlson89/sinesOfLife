@@ -4,6 +4,9 @@ uniform vec2 res;
 uniform float time;
 uniform int N;
 
+uniform float gradientStart;
+uniform float gradientEnd;
+
 uniform sampler2DRect colors;
 uniform sampler2DRect offsets;
 uniform sampler2DRect timeFactors;
@@ -65,8 +68,9 @@ void main(){
             c = mix(c, color, pct);
     }
 
-    
-	
+    //  Alpha gradient
+    alpha *= smoothstep(gradientStart, gradientEnd, uv.x);
+    alpha *= 1.0 - smoothstep(1.0 - gradientEnd, 1.0 - gradientStart, uv.x);
     
 	fragColor = vec4(c,alpha);
 }

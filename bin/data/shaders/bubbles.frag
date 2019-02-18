@@ -4,6 +4,9 @@ uniform vec4 color;
 uniform vec2 res;
 uniform float time;
 
+uniform float gradientStart;
+uniform float gradientEnd;
+
 in vec2 vTexCoord;
 
 out vec4 fragColor;
@@ -88,6 +91,10 @@ void main()
 
     col = max(col, vec3(m) * color.rgb);
     alpha = max(alpha, col.r * 0.87);
+
+    //  Alpha gradient
+    alpha *= smoothstep(gradientStart, gradientEnd, gl_FragCoord.x / res.x);
+    alpha *= 1.0 - smoothstep(1.0 - gradientEnd, 1.0 - gradientStart, gl_FragCoord.x / res.x);
     
     //  Output to screen
     fragColor = vec4(col,alpha);

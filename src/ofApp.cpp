@@ -87,11 +87,13 @@ void ofApp::setupScene2(){
 	vector<ofFloatColor> colors;
 	colors.push_back(ofColor(255, 145, 82));
 	heat2.setColors(colors);
+	heat2.setGradient(1.0, 0.9);
 	colors.clear();
 
 	//	Bubbles
 	bubbles2 = BubbleLayer(x, y, width, height, 32);
 	bubbles2.setColor(ofColor(255, 145, 82));
+	bubbles2.setGradient(1.0, 0.9);
 
 	//	Wind
 	wind2a = Wind(x, y, width, height, 32, -0.35, -0.3);
@@ -100,14 +102,16 @@ void ofApp::setupScene2(){
 	colors.push_back(ofColor(254, 123, 69));
 	colors.push_back(ofColor(253, 114, 83));
 	wind2a.setColors(colors);
+	wind2a.setGradient(1.0, 0.8);
 	colors.clear();
 
-	wind2b = Wind(x, y, width, height, 32, 0.8, 0.85);
+	wind2b = Wind(x - 200, y, width + 400, height, 32, 0.8, 0.85);
 	colors.push_back(ofColor(38, 25, 40));
 	colors.push_back(ofColor(59, 41, 63));
 	colors.push_back(ofColor(138, 88, 132));
 	colors.push_back(ofColor(186, 107, 134));
 	wind2b.setColors(colors);
+	wind2b.setGradient(1.0, 0.7);
 	colors.clear();
 
 	//	Image
@@ -204,23 +208,27 @@ void ofApp::setupScene4(){
 	vector<ofFloatColor> colors;
 	colors.push_back(ofColor(207, 90, 110));
 	heat4.setColors(colors);
+	heat4.setGradient(0.0, 0.1);
 	colors.clear();
 
 	//	Bubbles
 	bubbles4 = BubbleLayer(x, y, width, height, 32);
 	bubbles4.setColor(ofColor(207, 90, 110));
+	bubbles4.setGradient(0.0, 0.1);
 
 	//	Panel
 	float panelH = h / 3 + 100;
 	panel4 = Panel(x, h - panelH, width, panelH, 0, 0, 0);
+	panel4.setGradient(0.0, 0.1);
 
 	//	Wind
-	wind4a = Wind(x, y, width, height, 32, 0.6, 0.65);
+	wind4a = Wind(x - 300, y, width + 600, height, 32, 0.6, 0.65);
 	colors.push_back(ofColor(137, 59, 76));
 	colors.push_back(ofColor(207, 90, 110));
 	colors.push_back(ofColor(87, 56, 73));
 	colors.push_back(ofColor(255, 255, 255));
 	wind4a.setColors(colors);
+	wind4a.setGradient(0.0, 0.3);
 	colors.clear();
 
 	//	Origami;
@@ -235,12 +243,13 @@ void ofApp::setupScene4(){
 	colors.push_back(ofColor(0, 97, 124));
 	colors.push_back(ofColor(0, 195, 248));
 	wind4b.setColors(colors);
+	wind4b.setGradient(0.0, 0.1);
 	colors.clear();
 
 	//	Blood
 	float bW = 265.0;
 	float bH = h * 0.8;
-	blood4 = Blood(x + w3 - bW, y + 275, bW, bH, 32, 0.0, 0.005);
+	blood4 = Blood(x + w4 - bW, y + 275, bW, bH, 32, 0.0, 0.005);
 	colors.push_back(ofColor(137, 59, 76));
 	colors.push_back(ofColor(207, 90, 110));
 	colors.push_back(ofColor(207, 90, 110));
@@ -248,6 +257,7 @@ void ofApp::setupScene4(){
 	colors.push_back(ofColor(87, 56, 73));
 	colors.push_back(ofColor(255, 255, 255));
 	blood4.setColors(colors);
+	blood4.setGradient(1.0, 0.8);
 	colors.clear();
 
 	//	Skull Image
@@ -431,10 +441,11 @@ void ofApp::draw(){
 
 	//	Scenes
 	drawScene1();
-	drawScene2();
 	drawScene3();
-	drawScene4();
 	drawScene5();
+
+	drawScene2();
+	drawScene4();
 
 	//	Spout
 	displayTex.loadScreenData(0, 0, w, h);
@@ -506,7 +517,7 @@ void ofApp::drawScene4(){
 	//	Origami
 	ofPushStyle();
 	ofSetColor(255);
-	origamiImage.draw(w1 + w2 + w3, h * 0.45);
+	origamiImage.draw(w1 + w2 + w3 - 50, h * 0.4);
 	ofPopStyle();
 
 	//	Oct layer B
