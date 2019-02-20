@@ -7,6 +7,7 @@
 #include "ofxSpout.h"
 
 //	Project
+#include "Aurora.h"
 #include "Background.h"
 #include "Blood.h"
 #include "BubbleLayer.h"
@@ -25,6 +26,7 @@ public:
 	void setupScene3();
 	void setupScene4();
 	void setupScene5();
+	void setupScene6();
 
 	void update();
 
@@ -34,6 +36,7 @@ public:
 	void drawScene3();
 	void drawScene4();
 	void drawScene5();
+	void drawScene6();
 
 	void reset();
 	
@@ -158,4 +161,13 @@ public:
 	//------------------------------------------------
 	//	Background
 	Background bg5;
+
+	//------------------------------------------------
+	//	SCENE 6
+	//------------------------------------------------
+	//	Aurora
+	Aurora aurora6;
+
+	//	Screen textures
+	ofTexture tex0, tex1;
 };

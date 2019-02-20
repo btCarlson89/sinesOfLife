@@ -4,7 +4,7 @@
 void ofApp::setup(){
 	//	OF Settings
 	ofSetFrameRate(60);
-	ofSetWindowPosition(20, 20);
+	ofSetWindowPosition(0, 30);
 	ofSetWindowShape(3600, 950);
 
 	//	Window
@@ -46,6 +46,7 @@ void ofApp::setup(){
 	setupScene3();
 	setupScene4();
 	setupScene5();
+	setupScene6();
 }
 
 //--------------------------------------------------------------
@@ -96,22 +97,22 @@ void ofApp::setupScene2(){
 	bubbles2.setGradient(1.0, 0.9);
 
 	//	Wind
-	wind2a = Wind(x, y, width, height, 32, -0.35, -0.3);
+	wind2a = Wind(x, y, width + 100, height, 32, -0.35, -0.3);
 	colors.push_back(ofColor(255, 180, 94));
 	colors.push_back(ofColor(255, 145, 82));
 	colors.push_back(ofColor(254, 123, 69));
 	colors.push_back(ofColor(253, 114, 83));
 	wind2a.setColors(colors);
-	wind2a.setGradient(1.0, 0.8);
+	wind2a.setGradient(0.0, 0.3);
 	colors.clear();
 
-	wind2b = Wind(x - 200, y, width + 400, height, 32, 0.8, 0.85);
+	wind2b = Wind(x - 200, y, width + 450, height, 32, 0.8, 0.85);
 	colors.push_back(ofColor(38, 25, 40));
 	colors.push_back(ofColor(59, 41, 63));
 	colors.push_back(ofColor(138, 88, 132));
 	colors.push_back(ofColor(186, 107, 134));
 	wind2b.setColors(colors);
-	wind2b.setGradient(1.0, 0.7);
+	wind2b.setGradient(0.0, 0.3);
 	colors.clear();
 
 	//	Image
@@ -222,20 +223,20 @@ void ofApp::setupScene4(){
 	panel4.setGradient(0.0, 0.1);
 
 	//	Wind
-	wind4a = Wind(x - 300, y, width + 600, height, 32, 0.6, 0.65);
+	wind4a = Wind(x - 50, y, width + 250, height, 32, 0.6, 0.65);
 	colors.push_back(ofColor(137, 59, 76));
 	colors.push_back(ofColor(207, 90, 110));
 	colors.push_back(ofColor(87, 56, 73));
 	colors.push_back(ofColor(255, 255, 255));
 	wind4a.setColors(colors);
-	wind4a.setGradient(0.0, 0.3);
+	wind4a.setGradient(0.0, 0.2);
 	colors.clear();
 
 	//	Origami;
 	origamiImage.load("images/origami.png");
 
 	//	Wind B
-	wind4b = Wind(x, y, width, height, 48, 0.15, 0.25);
+	wind4b = Wind(x - 300, y, width + 400, height, 48, 0.15, 0.25);
 	colors.push_back(ofColor(16, 27, 31));
 	colors.push_back(ofColor(0, 48, 61));
 	colors.push_back(ofColor(0, 97, 124));
@@ -243,7 +244,7 @@ void ofApp::setupScene4(){
 	colors.push_back(ofColor(0, 97, 124));
 	colors.push_back(ofColor(0, 195, 248));
 	wind4b.setColors(colors);
-	wind4b.setGradient(0.0, 0.1);
+	wind4b.setGradient(0.0, 0.3);
 	colors.clear();
 
 	//	Blood
@@ -266,7 +267,7 @@ void ofApp::setupScene4(){
 	//	Oct layer A
 	int numRows = 15;
 	int numCols = 20;
-	oct4a = OctLayer(x, y, width, height, 40, numCols, numRows);
+	oct4a = OctLayer(x - 100, y, width + 200, height, 40, numCols, numRows);
 	colors.push_back(ofColor(8, 13, 15));
 	colors.push_back(ofColor(32, 43, 47));
 	colors.push_back(ofColor(48, 59, 63));
@@ -290,8 +291,8 @@ void ofApp::setupScene4(){
 	rowChances.push_back(0.0);	//	14
 	rowChances.push_back(0.0);	//	15
 	vector<float> colChances;
-	colChances.push_back(0.25);	//	1
-	colChances.push_back(0.5);	//	2
+	colChances.push_back(0.0);	//	1
+	colChances.push_back(0.25);	//	2
 	colChances.push_back(0.5);	//	3
 	colChances.push_back(0.75);	//	4
 	colChances.push_back(0.85);	//	5
@@ -304,8 +305,8 @@ void ofApp::setupScene4(){
 	colChances.push_back(0.65);	//	12
 	colChances.push_back(0.55);	//	13
 	colChances.push_back(0.5);	//	14
-	colChances.push_back(0.05);	//	15
-	colChances.push_back(0.0);	//	16
+	colChances.push_back(0.25);	//	15
+	colChances.push_back(0.1);	//	16
 	colChances.push_back(0.0);	//	17
 	colChances.push_back(0.0);	//	18
 	colChances.push_back(0.0);	//	19
@@ -315,7 +316,7 @@ void ofApp::setupScene4(){
 	//	Oct layer B
 	numRows = 15;
 	numCols = 20;
-	oct4b = OctLayer(x, y, width, height, 40, numCols, numRows);
+	oct4b = OctLayer(x - 100, y, width + 200, height, 40, numCols, numRows);
 	colors.push_back(ofColor(8, 13, 15));
 	colors.push_back(ofColor(32, 43, 47));
 	colors.push_back(ofColor(48, 59, 63));
@@ -339,7 +340,7 @@ void ofApp::setupScene4(){
 	rowChances.push_back(0.25);	//	14
 	rowChances.push_back(0.15);	//	15
 	colChances.clear();
-	colChances.push_back(0.25);	//	1
+	colChances.push_back(0.0);	//	1
 	colChances.push_back(0.25);	//	2
 	colChances.push_back(0.25);	//	3
 	colChances.push_back(0.5);	//	4
@@ -354,9 +355,9 @@ void ofApp::setupScene4(){
 	colChances.push_back(0.85);	//	13
 	colChances.push_back(0.95);	//	14
 	colChances.push_back(0.65);	//	15
-	colChances.push_back(0.5);	//	16
-	colChances.push_back(0.15);	//	17
-	colChances.push_back(0.05);	//	18
+	colChances.push_back(0.25);	//	16
+	colChances.push_back(0.1);	//	17
+	colChances.push_back(0.0);	//	18
 	colChances.push_back(0.0);	//	19
 	colChances.push_back(0.0);	//	20
 	oct4b.setChances(colChances, rowChances);
@@ -364,7 +365,7 @@ void ofApp::setupScene4(){
 	//	Oct layer C
 	numRows = 15;
 	numCols = 20;
-	oct4c = OctLayer(x, y, width, height, 40, numCols, numRows);
+	oct4c = OctLayer(x + 50, y, width + 100, height, 40, numCols, numRows);
 	colors.push_back(ofColor(161, 141, 110));
 	colors.push_back(ofColor(137, 59, 76));
 	colors.push_back(ofColor(207, 90, 110));
@@ -372,13 +373,13 @@ void ofApp::setupScene4(){
 	oct4c.setColors(colors);
 	colors.clear();
 	rowChances.clear();
-	rowChances.push_back(0.15);	//	1
-	rowChances.push_back(0.25);	//	2
-	rowChances.push_back(0.5);	//	3
-	rowChances.push_back(0.75);	//	4
-	rowChances.push_back(0.95);	//	5
-	rowChances.push_back(0.05);	//	6
-	rowChances.push_back(0.0);	//	7
+	rowChances.push_back(0.0);	//	1
+	rowChances.push_back(0.15);	//	2
+	rowChances.push_back(0.25);	//	3
+	rowChances.push_back(0.5);	//	4
+	rowChances.push_back(0.75);	//	5
+	rowChances.push_back(0.95);	//	6
+	rowChances.push_back(0.05);	//	7
 	rowChances.push_back(0.0);	//	8
 	rowChances.push_back(0.0);	//	9
 	rowChances.push_back(0.0);	//	10
@@ -402,12 +403,12 @@ void ofApp::setupScene4(){
 	colChances.push_back(0.65);	//	12
 	colChances.push_back(0.85);	//	13
 	colChances.push_back(0.95);	//	14
-	colChances.push_back(0.65);	//	15
+	colChances.push_back(0.75);	//	15
 	colChances.push_back(0.5);	//	16
 	colChances.push_back(0.25);	//	17
-	colChances.push_back(0.15);	//	18
-	colChances.push_back(0.15);	//	19
-	colChances.push_back(0.05);	//	20
+	colChances.push_back(0.0);	//	18
+	colChances.push_back(0.0);	//	19
+	colChances.push_back(0.0);	//	20
 	oct4c.setChances(colChances, rowChances);
 }
 
@@ -429,6 +430,28 @@ void ofApp::setupScene5(){
 }
 
 //--------------------------------------------------------------
+void ofApp::setupScene6(){
+	//	Dimensions
+	float x = w1 + w2;
+	float y = 0;
+	float width = w3;
+	float height = width;
+
+	//	Aurora
+	aurora6 = Aurora(x, y, width, height, 8);
+	vector<ofFloatColor> colors;
+	colors.push_back(ofColor(253, 114, 83));
+	colors.push_back(ofColor(0, 191, 248));
+	aurora6.setColors(colors);
+	aurora6.setGradient(0.0, 0.1);
+	colors.clear();
+
+	//	Screen textures
+	tex0.allocate(w2, h, GL_RGBA32F_ARB);
+	tex1.allocate(w4, h, GL_RGBA32F_ARB);
+}
+
+//--------------------------------------------------------------
 void ofApp::update(){
 	//	Window
 	ofSetWindowTitle(ofToString(ofGetFrameRate()));
@@ -446,6 +469,8 @@ void ofApp::draw(){
 
 	drawScene2();
 	drawScene4();
+
+	drawScene6();
 
 	//	Spout
 	displayTex.loadScreenData(0, 0, w, h);
@@ -548,6 +573,17 @@ void ofApp::drawScene5(){
 	bg5.draw();
 }
 
+void ofApp::drawScene6(){
+	//	Screen textures
+	tex0.loadScreenData(w1, 0, w2, h);
+	tex1.loadScreenData(w1 + w2 + w3, 0, w4, h);
+
+	//	Aurora
+	aurora6.setScreenTex0(tex0);
+	aurora6.setScreenTex1(tex1);
+	aurora6.draw();
+}
+
 //--------------------------------------------------------------
 void ofApp::reset(){
 	//	Scenes
@@ -562,6 +598,8 @@ void ofApp::reset(){
 void ofApp::keyPressed(int key){
 	switch (key)
 	{
+	case 'a':
+		aurora6.reset();
 	case 'g':
 		showGUI = !showGUI;
 		break;
@@ -653,6 +691,8 @@ void ofApp::reloadShaders() {
 	oct4b.reloadShader();
 	//	SCENE 5
 	bg5.reloadShader();
+	//	SCENE 6
+	aurora6.reloadShader();
 }
 
 //--------------------------------------------------------------
