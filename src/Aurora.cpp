@@ -98,11 +98,11 @@ void Aurora::setScreenTex1(ofTexture tex){
 
 void Aurora::draw(){
 	int idx = 0;
-	float time = 0.0001 * ofGetElapsedTimef();
+	float time = ofGetElapsedTimef();
 	for (auto fbo : fbos) {
 		//	Position update
 		ofVec2f pos = positions.at(idx);
-		float angle = ofNoise(pos.x * time * 0.5, pos.y * time * 0.1) * TWO_PI;
+		float angle = ofNoise(pos.x + time * 0.05, pos.y + time * 0.01) * TWO_PI;
 		ofVec2f dir = ofVec2f(cos(angle), sin(angle));
 		pos += 100.0 * dir;
 

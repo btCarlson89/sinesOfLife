@@ -1,2 +1,3 @@
+ofxGist
 ofxGui
 ofxSpout

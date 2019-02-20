@@ -40,6 +40,8 @@ void ofApp::setup(){
 	guiPanel.add(w4TF.setup("W4", ofToString(w4), "10", "1000", 200, 20));
 	guiPanel.add(w5TF.setup("W5", ofToString(w5), "10", "1000", 200, 20));
 
+	//	Audio
+
 	//	Scenes
 	setupScene1();
 	setupScene2();
@@ -432,9 +434,9 @@ void ofApp::setupScene5(){
 //--------------------------------------------------------------
 void ofApp::setupScene6(){
 	//	Dimensions
-	float x = w1 + w2;
+	float x = w1 + w2 - 150;
 	float y = 0;
-	float width = w3;
+	float width = w3 + 300;
 	float height = width;
 
 	//	Aurora
@@ -592,6 +594,7 @@ void ofApp::reset(){
 	setupScene3();
 	setupScene4();
 	setupScene5();
+	setupScene6();
 }
 
 //--------------------------------------------------------------
@@ -600,6 +603,7 @@ void ofApp::keyPressed(int key){
 	{
 	case 'a':
 		aurora6.reset();
+		break;
 	case 'g':
 		showGUI = !showGUI;
 		break;
