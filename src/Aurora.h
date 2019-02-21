@@ -13,6 +13,8 @@ public:
 
 	void setScreenTex0(ofTexture tex);
 	void setScreenTex1(ofTexture tex);
+
+	void updateRMS(float rms);
 	
 	void draw();
 
@@ -60,4 +62,7 @@ private:
 
 	//	Shader
 	ofShader shader;
+
+	//	Sound
+	float rms;
 };

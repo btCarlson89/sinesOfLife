@@ -3,7 +3,9 @@
 #include "ofMain.h"
 
 //	Addons
+#include "ofxGist.h"
 #include "ofxGui.h"
+#include "ofxSoundPlayerObject.h"
 #include "ofxSpout.h"
 
 //	Project
@@ -21,6 +23,7 @@ class ofApp : public ofBaseApp{
 
 public:
 	void setup();
+	void setupAudio();
 	void setupScene1();
 	void setupScene2();
 	void setupScene3();
@@ -29,6 +32,12 @@ public:
 	void setupScene6();
 
 	void update();
+	void updateScene1();
+	void updateScene2();
+	void updateScene3();
+	void updateScene4();
+	void updateScene5();
+	void updateScene6();
 
 	void draw();
 	void drawScene1();
@@ -39,6 +48,11 @@ public:
 	void drawScene6();
 
 	void reset();
+
+	void exit();
+
+	//	Audio
+	void processAudio(float * input, int bufferSize, int nChannels);
 	
 	//	Listeners
 	void keyPressed(int key);
@@ -174,5 +188,12 @@ public:
 	//------------------------------------------------
 	//	AUDIO
 	//------------------------------------------------
-	
+	ofSoundStream soundstream;
+	ofxSoundOutput soundOutput;
+	ofxSoundPlayerObject soundPlayer;
+
+	ofxGist gist;
+
+	float rms;
+	float smoothRMS;
 };

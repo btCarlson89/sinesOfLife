@@ -41,6 +41,7 @@ void ofApp::setup(){
 	guiPanel.add(w5TF.setup("W5", ofToString(w5), "10", "1000", 200, 20));
 
 	//	Audio
+	setupAudio();
 
 	//	Scenes
 	setupScene1();
@@ -49,6 +50,38 @@ void ofApp::setup(){
 	setupScene4();
 	setupScene5();
 	setupScene6();
+}
+
+//--------------------------------------------------------------
+void ofApp::setupAudio(){
+	//	Load sound file
+	ofFileDialogResult result = ofSystemLoadDialog();
+	if (result.bSuccess) {
+		soundPlayer.load(result.getPath());
+	}
+
+	//	Specify audio settings
+	ofSoundStreamSettings soundSettings;
+	soundSettings.numInputChannels = 0;
+	soundSettings.numOutputChannels = 2;
+	soundSettings.sampleRate = soundPlayer.getSoundFile().getSampleRate();
+	soundSettings.bufferSize = 1024;
+	soundSettings.numBuffers = 1;
+
+	//	Setup soundstream
+	soundstream.setup(soundSettings);
+
+	//	Connect to audio outputs
+	soundPlayer.connectTo(soundOutput);
+	soundstream.setOutput(soundOutput);
+
+	//	Play sound
+	soundPlayer.play();
+	soundPlayer.setLoop(true);
+
+	//	Parameters
+	rms = 0.0f;
+	smoothRMS = 0.0f;
 }
 
 //--------------------------------------------------------------
@@ -457,6 +490,50 @@ void ofApp::setupScene6(){
 void ofApp::update(){
 	//	Window
 	ofSetWindowTitle(ofToString(ofGetFrameRate()));
+	//ofSetWindowTitle(ofToString(rms));
+
+	//	Audio
+	//vector<float> audioBuffer = soundOutput.getBuffer().getBuffer();
+	//processAudio(&audioBuffer[0], 1024, 2);
+	rms = max(ofMap(soundOutput.getBuffer().getRMSAmplitude(), 0.0, 0.5, 0.25, 1.0), rms * 0.99f);
+	smoothRMS = 0.5 * (rms + smoothRMS);
+
+	//	Scenes
+	updateScene2();
+	updateScene4();
+	updateScene6();
+}
+
+//--------------------------------------------------------------
+void ofApp::updateScene1(){
+}
+
+//--------------------------------------------------------------
+void ofApp::updateScene2() {
+	//	Wind
+	wind2a.updateRMS(smoothRMS);
+	wind2b.updateRMS(smoothRMS);
+}
+
+//--------------------------------------------------------------
+void ofApp::updateScene3() {
+}
+
+//--------------------------------------------------------------
+void ofApp::updateScene4() {
+	//	Wind
+	wind4a.updateRMS(smoothRMS);
+	wind4b.updateRMS(smoothRMS);
+}
+
+//--------------------------------------------------------------
+void ofApp::updateScene5() {
+}
+
+//--------------------------------------------------------------
+void ofApp::updateScene6() {
+	//	Aurora
+	aurora6.updateRMS(smoothRMS);
 }
 
 //--------------------------------------------------------------
@@ -595,6 +672,20 @@ void ofApp::reset(){
 	setupScene4();
 	setupScene5();
 	setupScene6();
+}
+
+//--------------------------------------------------------------
+void ofApp::exit(){
+	soundstream.close();
+}
+
+//--------------------------------------------------------------
+void ofApp::processAudio(float * input, int bufferSize, int nChannels){
+	//convert float array to vector
+	vector<float>buffer;
+	buffer.assign(&input[0], &input[bufferSize]);
+
+	gist.processAudio(buffer, bufferSize, nChannels, 44100);
 }
 
 //--------------------------------------------------------------

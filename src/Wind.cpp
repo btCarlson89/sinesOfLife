@@ -152,6 +152,10 @@ void Wind::writeNoiseToTex(){
 	delete[] noiseData;
 }
 
+void Wind::updateRMS(float rms) {
+	this->rms = rms;
+}
+
 void Wind::draw() {
 	//	Draw to fbo
 	fbo.begin();
@@ -161,6 +165,7 @@ void Wind::draw() {
 	shader.begin();
 	shader.setUniform2f("res", w, h);
 	shader.setUniform1f("time", ofGetElapsedTimef());
+	shader.setUniform1f("rms", rms);
 	shader.setUniform1i("N", n);
 	shader.setUniform1f("gradientStart", gradientStart);
 	shader.setUniform1f("gradientEnd", gradientEnd);

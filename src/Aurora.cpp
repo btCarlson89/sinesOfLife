@@ -96,6 +96,10 @@ void Aurora::setScreenTex1(ofTexture tex){
 	screenTex1 = tex;
 }
 
+void Aurora::updateRMS(float rms){
+	this->rms = rms;
+}
+
 void Aurora::draw(){
 	int idx = 0;
 	float time = ofGetElapsedTimef();
@@ -114,6 +118,7 @@ void Aurora::draw(){
 		shader.begin();
 		shader.setUniform2f("res", fbo.getWidth(), fbo.getHeight());
 		shader.setUniform1f("time", time);
+		shader.setUniform1f("rms", rms);
 		shader.setUniform4f("color1", colors.at(0));
 		shader.setUniform4f("color2", colors.at(1 % colors.size()));
 		shader.setUniform1f("gradientStart", gradientStart);

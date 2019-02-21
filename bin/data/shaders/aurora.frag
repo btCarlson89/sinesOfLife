@@ -2,6 +2,7 @@
 
 uniform vec2 res;
 uniform float time;
+uniform float rms;
 
 uniform vec4 color1;
 uniform vec4 color2;
@@ -95,7 +96,7 @@ void main()
     //  Draw circle
     vec2 offset = uv - vec2(0.5, 0.5);
     float dist = sqrt(dot(offset, offset));
-    float r = 0.5;
+    float r = 0.5 * rms;
     float thickness = 0.01;
     float alpha = smoothstep(r + thickness, r - thickness, dist);
 

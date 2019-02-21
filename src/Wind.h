@@ -16,6 +16,8 @@ public:
 	void writeTimeFactorsToTex();
 	void writeNoiseToTex();
 
+	void updateRMS(float rms);
+
 	void draw();
 
 	void reloadShader();
@@ -55,4 +57,7 @@ private:
 
 	//	Shader
 	ofShader shader;
+
+	//	Sound
+	float rms;
 };

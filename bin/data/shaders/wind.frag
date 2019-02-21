@@ -2,6 +2,7 @@
 
 uniform vec2 res;
 uniform float time;
+uniform float rms;
 uniform int N;
 
 uniform float gradientStart;
@@ -52,8 +53,8 @@ void main(){
         float n2 = texture(noiseFactors, vec2(i, 0)).z;
         float n3 = texture(noiseFactors, vec2(i, 0)).w;
         //  Noise function
-        float y = sin(p.x + offset + 0.5 * time + n1) + n2 * sin(p.x * 2. + t + n3 * cos(p.x)) + 0.1 * sin(p.x * 3. + t + n3);
-        y *= n0;
+        float y = sin(p.x + offset + 0.5 * time + n1) + (n2 + 0.5 * rms) * sin(p.x * 2. + t + (n3 + 0.5 * rms) * cos(p.x)) + 0.1 * sin(p.x * 3. + t + n3);
+        y *= n0 + (0.05 * rms);
         float pct = plot(p,y);
         //  Color
         vec3 color = texture(colors, vec2(i, 0.0)).rgb;

@@ -1,3 +1,5 @@
+ofxAudioFile
 ofxGist
 ofxGui
+ofxSoundObjects
 ofxSpout
