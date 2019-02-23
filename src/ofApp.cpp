@@ -5,7 +5,7 @@ void ofApp::setup(){
 	//	OF Settings
 	ofSetFrameRate(60);
 	ofSetWindowPosition(0, 30);
-	ofSetWindowShape(3600, 950);
+	ofSetWindowShape(5200, 950);
 
 	//	Window
 	w = ofGetWidth();
@@ -50,6 +50,7 @@ void ofApp::setup(){
 	setupScene4();
 	setupScene5();
 	setupScene6();
+	setupScene7();
 }
 
 //--------------------------------------------------------------
@@ -132,7 +133,7 @@ void ofApp::setupScene2(){
 	bubbles2.setGradient(1.0, 0.9);
 
 	//	Wind
-	wind2a = Wind(x, y, width + 100, height, 32, -0.35, -0.3);
+	wind2a = Wind(x, y, width + 300, height, 32, -0.35, -0.3);
 	colors.push_back(ofColor(255, 180, 94));
 	colors.push_back(ofColor(255, 145, 82));
 	colors.push_back(ofColor(254, 123, 69));
@@ -468,12 +469,12 @@ void ofApp::setupScene5(){
 void ofApp::setupScene6(){
 	//	Dimensions
 	float x = w1 + w2 - 150;
-	float y = 0;
 	float width = w3 + 300;
 	float height = width;
+	float y = -0.5 * (height - h);
 
 	//	Aurora
-	aurora6 = Aurora(x, y, width, height, 8);
+	aurora6 = Aurora(x, y, width, height, 12);
 	vector<ofFloatColor> colors;
 	colors.push_back(ofColor(253, 114, 83));
 	colors.push_back(ofColor(0, 191, 248));
@@ -484,6 +485,24 @@ void ofApp::setupScene6(){
 	//	Screen textures
 	tex0.allocate(w2, h, GL_RGBA32F_ARB);
 	tex1.allocate(w4, h, GL_RGBA32F_ARB);
+}
+
+//--------------------------------------------------------------
+void ofApp::setupScene7() {
+	//	Dimensions
+	float width = w3 + 150;
+	float height = h;
+	float x = w - width - 100;
+	float y = -0.5 * (height - h);
+
+	//	Aurora
+	aurora7 = Aurora(x, y, width, height, 12);
+	vector<ofFloatColor> colors;
+	colors.push_back(ofColor(253, 114, 83));
+	colors.push_back(ofColor(0, 191, 248));
+	aurora7.setColors(colors);
+	aurora7.setGradient(0.0, 0.1);
+	colors.clear();
 }
 
 //--------------------------------------------------------------
@@ -502,6 +521,7 @@ void ofApp::update(){
 	updateScene2();
 	updateScene4();
 	updateScene6();
+	updateScene7();
 }
 
 //--------------------------------------------------------------
@@ -537,6 +557,12 @@ void ofApp::updateScene6() {
 }
 
 //--------------------------------------------------------------
+void ofApp::updateScene7() {
+	//	Aurora
+	aurora7.updateRMS(smoothRMS);
+}
+
+//--------------------------------------------------------------
 void ofApp::draw(){
 	//	BG
 	ofBackground(0);
@@ -550,6 +576,7 @@ void ofApp::draw(){
 	drawScene4();
 
 	drawScene6();
+	drawScene7();
 
 	//	Spout
 	displayTex.loadScreenData(0, 0, w, h);
@@ -652,6 +679,7 @@ void ofApp::drawScene5(){
 	bg5.draw();
 }
 
+//--------------------------------------------------------------
 void ofApp::drawScene6(){
 	//	Screen textures
 	tex0.loadScreenData(w1, 0, w2, h);
@@ -661,6 +689,14 @@ void ofApp::drawScene6(){
 	aurora6.setScreenTex0(tex0);
 	aurora6.setScreenTex1(tex1);
 	aurora6.draw();
+}
+
+//--------------------------------------------------------------
+void ofApp::drawScene7() {
+	//	Aurora
+	aurora7.setScreenTex0(tex0);
+	aurora7.setScreenTex1(tex1);
+	aurora7.draw();
 }
 
 //--------------------------------------------------------------
@@ -694,6 +730,7 @@ void ofApp::keyPressed(int key){
 	{
 	case 'a':
 		aurora6.reset();
+		aurora7.reset();
 		break;
 	case 'g':
 		showGUI = !showGUI;

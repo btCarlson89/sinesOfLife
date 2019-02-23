@@ -30,6 +30,7 @@ public:
 	void setupScene4();
 	void setupScene5();
 	void setupScene6();
+	void setupScene7();
 
 	void update();
 	void updateScene1();
@@ -38,6 +39,7 @@ public:
 	void updateScene4();
 	void updateScene5();
 	void updateScene6();
+	void updateScene7();
 
 	void draw();
 	void drawScene1();
@@ -46,6 +48,7 @@ public:
 	void drawScene4();
 	void drawScene5();
 	void drawScene6();
+	void drawScene7();
 
 	void reset();
 
@@ -181,6 +184,12 @@ public:
 	//------------------------------------------------
 	//	Aurora
 	Aurora aurora6;
+
+	//------------------------------------------------
+	//	SCENE 7
+	//------------------------------------------------
+	//	Aurora
+	Aurora aurora7;
 
 	//	Screen textures
 	ofTexture tex0, tex1;
