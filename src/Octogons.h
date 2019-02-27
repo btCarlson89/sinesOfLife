@@ -12,7 +12,11 @@ public:
 	void setColors(vector<ofFloatColor> colors);
 	void setChances(vector<float> colChances, vector<float> rowChances);
 	void setPositions();
+	
 	void writePositionsToTex();
+
+	void updateRMS(float rms);
+
 	void draw();
 
 	void reloadShader();
@@ -43,4 +47,7 @@ private:
 
 	//	Shader
 	ofShader shader;
+
+	//	Sound
+	float rms;
 };

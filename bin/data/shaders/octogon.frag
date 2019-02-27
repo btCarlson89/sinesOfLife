@@ -2,6 +2,7 @@
 
 uniform int numDots;
 uniform float time;
+uniform float rms;
 uniform vec2 res;
 uniform vec4 color1;
 uniform vec4 color2;
@@ -69,7 +70,7 @@ void main(){
         vec2 pos = texture(posTex, vec2(i, 0.0)).xy;
 
         //  Get radius
-        float radius = texture(posTex, vec2(i, 0.0)).z;
+        float radius = texture(posTex, vec2(i, 0.0)).z  + 0.005 * rms;
         float dr = 0.175 * radius;
 
         //  Add noise

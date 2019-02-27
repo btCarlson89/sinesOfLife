@@ -2,6 +2,7 @@
 
 uniform int numDots;
 uniform float time;
+uniform float rms;
 uniform vec2 res;
 uniform vec4 color1;
 uniform vec4 color2;
@@ -54,11 +55,11 @@ void main(){
         //  Add noise
         float angle = noise(vec3(pos.x * time * 0.5, pos.y * time * 0.1, 1.0)) * TWO_PI;
         vec2 dir = vec2(cos(angle), sin(angle));
-        pos += 0.05* dir;
+        pos += (0.05 + 0.01 * rms) * dir;
         //  Draw circle
         vec2 offset = uv - pos;
         float dist = sqrt(dot(offset, offset));
-        float r = radius;
+        float r = radius + 0.005 * rms;
         alpha += smoothstep(r + thickness, r - thickness, dist);
         //  First mix
         r -= dr;

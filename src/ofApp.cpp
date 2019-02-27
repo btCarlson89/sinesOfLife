@@ -16,6 +16,24 @@ void ofApp::setup(){
 	displayTex.allocate(w, h, GL_RGBA32F_ARB);
 
 	//	Load settings
+	loadSettings();
+
+	//	Audio
+	setupAudio();
+
+	//	Scenes
+	setupScene1();
+	setupScene2();
+	setupScene3();
+	setupScene4();
+	setupScene5();
+	setupScene6();
+	setupScene7();
+}
+
+//--------------------------------------------------------------
+void ofApp::loadSettings(){
+	//	Settings from file
 	ofXml xml;
 	bool success = xml.load("settings.xml");
 	auto settings = xml.getChild("Settings");
@@ -24,6 +42,8 @@ void ofApp::setup(){
 	w3 = settings.getChild("W3").getFloatValue();
 	w4 = settings.getChild("W4").getFloatValue();
 	w5 = w - w4 - w3 - w2 - w1;
+
+	soundCue = settings.getChild("soundCue").getFloatValue();
 
 	//	GUI Listeners
 	w1TF.addListener(this, &ofApp::w1Update);
@@ -39,18 +59,6 @@ void ofApp::setup(){
 	guiPanel.add(w3TF.setup("W3", ofToString(w3), "10", "1000", 200, 20));
 	guiPanel.add(w4TF.setup("W4", ofToString(w4), "10", "1000", 200, 20));
 	guiPanel.add(w5TF.setup("W5", ofToString(w5), "10", "1000", 200, 20));
-
-	//	Audio
-	setupAudio();
-
-	//	Scenes
-	setupScene1();
-	setupScene2();
-	setupScene3();
-	setupScene4();
-	setupScene5();
-	setupScene6();
-	setupScene7();
 }
 
 //--------------------------------------------------------------
@@ -78,6 +86,7 @@ void ofApp::setupAudio(){
 
 	//	Play sound
 	soundPlayer.play();
+	soundPlayer.setPosition(soundCue);
 	soundPlayer.setLoop(true);
 
 	//	Parameters
@@ -468,7 +477,7 @@ void ofApp::setupScene5(){
 //--------------------------------------------------------------
 void ofApp::setupScene6(){
 	//	Dimensions
-	float x = w1 + w2 - 150;
+	float x = w1 + w2 - 100;
 	float width = w3 + 300;
 	float height = width;
 	float y = -0.5 * (height - h);
@@ -533,6 +542,9 @@ void ofApp::updateScene2() {
 	//	Wind
 	wind2a.updateRMS(smoothRMS);
 	wind2b.updateRMS(smoothRMS);
+
+	//	Dots
+	mDot2.updateRMS(rms);
 }
 
 //--------------------------------------------------------------
@@ -544,6 +556,11 @@ void ofApp::updateScene4() {
 	//	Wind
 	wind4a.updateRMS(smoothRMS);
 	wind4b.updateRMS(smoothRMS);
+
+	//	Octogons
+	oct4a.updateRMS(rms);
+	oct4b.updateRMS(rms);
+	oct4c.updateRMS(rms);
 }
 
 //--------------------------------------------------------------

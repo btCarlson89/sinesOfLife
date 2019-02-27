@@ -111,6 +111,10 @@ void OctLayer::writePositionsToTex() {
 	delete[] posData;
 }
 
+void OctLayer::updateRMS(float rms){
+	this->rms = rms;
+}
+
 void OctLayer::draw() {
 	//	Draw to fbo
 	fbo.begin();
@@ -119,6 +123,7 @@ void OctLayer::draw() {
 	shader.begin();
 	shader.setUniform1i("numDots", positions.size());
 	shader.setUniform1f("time", ofGetElapsedTimef() * 0.5);
+	shader.setUniform1f("rms", 0.0);
 	shader.setUniform2f("res", w, h);
 	shader.setUniform4f("color1", colors.at(0));
 	shader.setUniform4f("color2", colors.at(1 % colors.size()));

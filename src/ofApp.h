@@ -23,6 +23,7 @@ class ofApp : public ofBaseApp{
 
 public:
 	void setup();
+	void loadSettings();
 	void setupAudio();
 	void setupScene1();
 	void setupScene2();
@@ -205,4 +206,6 @@ public:
 
 	float rms;
 	float smoothRMS;
+
+	float soundCue;
 };
